@@ -40,13 +40,45 @@ UserSchema.statics.signup = async function (username, email, password) {
 	}
 	const emailExist = await this.findOne({ email });
 	if (emailExist) {
-		throw Error("Email already in use");
+		throw Error("Email is already in use");
 	}
 
 	const salt = await bcrypt.genSalt(10);
 	const hassPassword = await bcrypt.hash(password, salt);
 
 	const user = await this.create({ username, email, password: hassPassword });
+	return user;
+};
+
+UserSchema.statics.login = async function (userIdentifier, password) {
+	if (!userIdentifier) {
+		throw Error("Please enter your email or username");
+	}
+	if (!password) {
+		throw Error("Please enter your password");
+	}
+
+	const user = await this.findOne({
+		$or: [
+			{
+				username: userIdentifier,
+			},
+			{
+				email: userIdentifier,
+			},
+		],
+	});
+
+	if (!user) {
+		throw Error("Invalid login credentials");
+	}
+
+	const match = await bcrypt.compare(password, user.password);
+
+	if (!match) {
+		throw Error("Invalid login credentials");
+	}
+
 	return user;
 };
 
