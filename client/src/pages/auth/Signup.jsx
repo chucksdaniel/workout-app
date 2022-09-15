@@ -12,7 +12,11 @@ const Signup = () => {
 		e.preventDefault();
 
 		// console.log(username, email, password);
-		await signup(username, email, password);
+		await signup({username, email, password});
+      
+      setUsername('')
+      setEmail("")
+      setPassword("")
 	};
 
 	return (
@@ -21,23 +25,23 @@ const Signup = () => {
 			<label>Username: </label>
 			<input
 				type="text"
-				onChange={(e) => setUsername(e.target.value)}
 				value={username}
+				onChange={(e) => setUsername(e.target.value)}
 			/>
 
 			<label>Email: </label>
 			<input
 				type="email"
-				onChange={(e) => setEmail(e.target.value)}
 				value={email}
+				onChange={(e) => setEmail(e.target.value)}
 			/>
 
 			<label>Password: </label>
 			<input
 				type="password"
-				onChange={(e) => setPassword(e.target.value)}
 				value={password}
-			/>
+				onChange={(e) => setPassword(e.target.value)}
+            />
 			<button disabled={isLoading}>Signup</button>
 			{error && <div className="error">{error}</div>}
 		</form>

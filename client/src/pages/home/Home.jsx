@@ -11,6 +11,8 @@ const Home = () => {
 	const { workouts, dispatch } = useWorkoutsContext();
 	useEffect(() => {
 		const fetchWorkouts = async () => {
+         //   "proxy": "https://i-fit.herokuapp.com/",
+         // "proxy": "http://localhost:5000",
 			const response = await fetch("/api/v1/workouts");
 			const res = await response.json();
 

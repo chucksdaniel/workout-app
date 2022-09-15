@@ -1,6 +1,6 @@
 /**
  * Combines all the context together in a single file
- * This can be error prone especially when you have to write lines of Code
+ * This can be error prone and difficult to read especially when you have to write many lines of Code
  */
 import { createContext, useReducer } from "react";
 
