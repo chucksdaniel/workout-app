@@ -7,6 +7,9 @@ const {
 	editWorkout,
 	deleteWorkout,
 } = require("../../controllers/workout");
+const { auth } = require("../../middleware/auth");
+
+router.use(auth)
 
 router.route("/").get(getWorkouts).post(createWorkout);
 router
